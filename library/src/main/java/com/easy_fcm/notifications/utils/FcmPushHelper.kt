@@ -2,6 +2,9 @@ package com.easy_fcm.notifications.utils
 
 import com.easy_fcm.notifications.models.NotificationData
 import com.easy_fcm.notifications.models.PushNotification
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -49,24 +52,24 @@ class FcmPushHelper private constructor(
     }
 
     fun pushNotification(onSuccess: (String) -> Unit, onError: (String) -> Unit) {
-//        val ioScope = CoroutineScope(Dispatchers.IO)
-//        val mainScope = CoroutineScope(Dispatchers.Main)
-//        ioScope.launch {
-        val response = getAPi().postNotification(
-            PushNotification(notiData, token),
-            "application/json",
-            serverKey,
-        )
-        if (response.isSuccessful) {
-//                mainScope.launch {
-            onSuccess(response.errorBody().toString().replace("http", "0.0"))
-//                }
-        } else {
-//                mainScope.launch {
-            onError(response.errorBody().toString())
-//                }
+        val ioScope = CoroutineScope(Dispatchers.IO)
+        val mainScope = CoroutineScope(Dispatchers.Main)
+        ioScope.launch {
+            val response = getAPi().postNotification(
+                PushNotification(notiData, token),
+                "application/json",
+                serverKey,
+            )
+            if (response.isSuccessful) {
+                mainScope.launch {
+                    onSuccess(response.errorBody().toString().replace("http", "0.0"))
+                }
+            } else {
+                mainScope.launch {
+                    onError(response.errorBody().toString())
+                }
+            }
         }
-//        }
     }
 
     interface NotificationApi {
