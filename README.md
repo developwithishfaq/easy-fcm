@@ -1,16 +1,18 @@
-# android-example
+# Easy FCM
 
-[![Release](https://jitpack.io/v/jitpack/android-example.svg)](https://jitpack.io/#jitpack/android-example)
+Easy FCM is a powerful and user-friendly library designed to streamline the process of integrating Firebase Cloud Messaging (FCM) into your projects, enabling developers to effortlessly implement push notifications and enhance user engagement. With its intuitive API and comprehensive features, Easy FCM empowers developers to focus on delivering engaging content to their users rather than dealing with complex FCM setup.
 
-Example Android library project that works with jitpack.io.
+## Features
 
-See this [Tutorial](https://medium.com/@ome450901/publish-an-android-library-by-jitpack-a0342684cbd0) on how to publish an Android Library with JitPack.
+- **Simplified Integration**: Easy FCM takes care of the intricate FCM setup, allowing you to quickly implement push notifications without the hassle.
 
-For more details check out the [documentation](https://github.com/jitpack/jitpack.io/blob/master/ANDROID.md)
+- **Intuitive API**: With an intuitive and straightforward API, Easy FCM lets you send push notifications seamlessly.
 
-https://jitpack.io/#jitpack/android-example
+- **Topics And Tokens**: Effortlessly manages to push notifications on topics/tokens.
 
-Add it to your build.gradle with:
+
+
+> Step 1: Add it to your build.gradle (project):
 ```gradle
 allprojects {
     repositories {
@@ -18,38 +20,40 @@ allprojects {
     }
 }
 ```
-and:
+> Step 2: Add it to your build.gradle (app)
 
 ```gradle
 dependencies {
-    compile 'com.github.jitpack:android-example:{latest version}'
+    compile 'com.github.jitpack:android-example:latest_version'
 }
 ```
 
-## Multiple build variants
+## Usage
 
-If your library uses multiple flavours then see this example:
-https://github.com/jitpack-io/android-jitpack-library-example
+> First Step:
+  **Create Instance**
+- Get server key from firebase console
+- For **setTokenOrTopic()** in value section provide token of a device or a topic name, change **isTopic** value accordingly
+- In **setNotificationData()** Provide model **NotificationData()** containing title and body of a notification
+- Finally Build It
 
-## Adding the maven plugin
-
-To enable installing into local maven repository and JitPack you need to add the [android-maven](https://github.com/dcendents/android-maven-gradle-plugin) plugin:
-
-1. Add `classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'` to root build.gradle under `buildscript { dependencies {`
-2. Add `com.github.dcendents.android-maven` to the library/build.gradle
-
-After these changes you should be able to run:
-
-    ./gradlew install
-    
-from the root of your project. If install works and you have added a GitHub release it should work on jitpack.io
-
-## Adding a sample app 
-
-If you add a sample app to the same repo then your app needs to have a dependency on the library. To do this in your app/build.gradle add:
-
-```gradle
-    dependencies {
-        compile project(':library')
-    }
 ```
+val helper = FcmPushHelper.Builder()
+            .setServerKey(SERVER_KEY)
+            .setTokenOrTopic(value = TOKEN_OR_TOPIC, isTopic = false)
+            .setNotificationData(notification = NotificationData(TITLE, BODY))
+            .build()
+```
+> Last Step:
+Using that instance call **pushNotification()** function
+```
+helper.pushNotification(onSuccess = {
+            Log.d(TAG, "onSuccess: ")
+        }, onError = {
+            Log.d(TAG, "onError: ")
+        })
+``` 
+
+
+
+
