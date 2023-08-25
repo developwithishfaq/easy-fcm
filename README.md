@@ -24,7 +24,7 @@ allprojects {
 
 ```gradle
 dependencies {
-     implementation 'com.github.developwithishfaq:easy-fcm:1.0'
+     implementation 'com.github.developwithishfaq:easy-fcm:latest_version'
 }
 ```
 
