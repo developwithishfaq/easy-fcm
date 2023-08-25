@@ -1,16 +1,13 @@
 package com.easy_fcm.notifications.utils
 
+import com.easy_fcm.notifications.interfaces.NotificationApi
 import com.easy_fcm.notifications.models.NotificationData
 import com.easy_fcm.notifications.models.PushNotification
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import okhttp3.ResponseBody
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.Header
-import retrofit2.http.POST
 
 class FcmPushHelper private constructor(
     private val notiData: NotificationData,
@@ -72,15 +69,6 @@ class FcmPushHelper private constructor(
         }
     }
 
-    interface NotificationApi {
-        @POST("fcm/send")
-        suspend fun postNotification(
-            @Body notification: PushNotification,
-            @Header("Content-Type") contentType: String,
-            @Header("Authorization") authorization: String
-        ): retrofit2.Response<ResponseBody>
-    }
-
 
     private fun getInstance(): Retrofit {
         return Retrofit.Builder()
@@ -92,6 +80,4 @@ class FcmPushHelper private constructor(
     private fun getAPi(): NotificationApi {
         return getInstance().create(NotificationApi::class.java)
     }
-
-
 }

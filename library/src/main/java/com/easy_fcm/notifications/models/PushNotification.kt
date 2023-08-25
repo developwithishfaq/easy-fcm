@@ -4,8 +4,3 @@ data class PushNotification(
     val notification: NotificationData,
     val to: String
 )
-
-data class NotificationData(
-    val title: String,
-    val body: String
-)
