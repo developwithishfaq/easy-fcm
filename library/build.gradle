@@ -4,7 +4,7 @@ plugins {
     id 'maven-publish'
 }
 
-group = 'com.github.developwithishfaq'
+group = 'com.github.jitpack'
 version = '1.0'
 
 android {
@@ -42,8 +42,6 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
 
-//    implementation 'com.github.developwithishfaq:EasyFcm:0.7'
-
 }
 
 afterEvaluate {
@@ -52,8 +50,8 @@ afterEvaluate {
             // Creates a Maven publication called "release".
             release(MavenPublication) {
                 from components.release
-                groupId = 'com.github.developwithishfaq'
-                artifactId = 'easy-fcm'
+                groupId = 'com.github.jitpack'
+                artifactId = 'android-example'
                 version = '1.0'
             }
         }
