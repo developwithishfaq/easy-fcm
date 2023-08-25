@@ -45,7 +45,7 @@ class FcmPushHelper private constructor(
         fun build(): FcmPushHelper {
             return FcmPushHelper(
                 notiData ?: NotificationData("", ""),
-                serverKey ?: "",
+                "key=$serverKey" ?: "",
                 token ?: ""
             )
         }
