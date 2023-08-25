@@ -74,7 +74,7 @@ class FcmPushHelper private constructor(
 
     interface NotificationApi {
         @POST("fcm/send")
-        fun postNotification(
+        suspend fun postNotification(
             @Body notification: PushNotification,
             @Header("Content-Type") contentType: String,
             @Header("Authorization") authorization: String
