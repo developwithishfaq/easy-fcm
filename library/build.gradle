@@ -42,7 +42,7 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
 
-    implementation 'com.github.developwithishfaq:EasyFcm:0.7'
+//    implementation 'com.github.developwithishfaq:EasyFcm:0.7'
 
 }
 
@@ -53,7 +53,7 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
                 groupId = 'com.github.developwithishfaq'
-                artifactId = 'EasyFcm'
+                artifactId = 'easy-fcm'
                 version = '1.0'
             }
         }
