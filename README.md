@@ -24,7 +24,7 @@ allprojects {
 
 ```gradle
 dependencies {
-    compile 'com.github.jitpack:android-example:latest_version'
+     implementation 'com.github.developwithishfaq:easy-fcm:1.0'
 }
 ```
 
