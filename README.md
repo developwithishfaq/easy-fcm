@@ -24,14 +24,14 @@ allprojects {
 
 ```gradle
 dependencies {
-     implementation 'com.github.developwithishfaq:easy-fcm:1.0'
+     implementation 'com.github.developwithishfaq:easy-fcm:latest_version'
 }
 ```
 
 ## Usage
 
 > First Step:
-  **Create Instance**
+**Create Instance**
 - Get server key from firebase console
 - For **setTokenOrTopic()** in value section provide token of a device or a topic name, change **isTopic** value accordingly
 - In **setNotificationData()** Provide model **NotificationData()** containing title and body of a notification
@@ -53,7 +53,3 @@ helper.pushNotification(onSuccess = {
             Log.d(TAG, "onError: ")
         })
 ``` 
-
-
-
-

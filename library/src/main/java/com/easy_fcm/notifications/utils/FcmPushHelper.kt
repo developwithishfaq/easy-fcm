@@ -48,7 +48,7 @@ class FcmPushHelper private constructor(
         }
     }
 
-    fun pushNotification(onSuccess: (String) -> Unit, onError: (String) -> Unit) {
+    fun pushNotification(onSuccess: (String) -> Unit = {}, onError: (String) -> Unit = {}) {
         val ioScope = CoroutineScope(Dispatchers.IO)
         val mainScope = CoroutineScope(Dispatchers.Main)
         ioScope.launch {
@@ -59,7 +59,7 @@ class FcmPushHelper private constructor(
             )
             if (response.isSuccessful) {
                 mainScope.launch {
-                    onSuccess(response.errorBody().toString().replace("http", "0.0"))
+                    onSuccess(response.errorBody().toString())
                 }
             } else {
                 mainScope.launch {
