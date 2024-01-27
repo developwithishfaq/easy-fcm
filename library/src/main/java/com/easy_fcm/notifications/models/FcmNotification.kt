@@ -1,6 +1,6 @@
 package com.easy_fcm.notifications.models
 
-internal data class NotificationData(
+data class FcmNotification(
     val title: String,
-    val body: String
+    val message: String
 )

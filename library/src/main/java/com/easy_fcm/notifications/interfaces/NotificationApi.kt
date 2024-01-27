@@ -6,7 +6,7 @@ import retrofit2.http.Body
 import retrofit2.http.Header
 import retrofit2.http.POST
 
-interface NotificationApi {
+internal interface NotificationApi {
     @POST("fcm/send")
     suspend fun postNotification(
         @Body notification: PushNotification,

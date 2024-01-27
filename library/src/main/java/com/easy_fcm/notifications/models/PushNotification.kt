@@ -1,6 +1,7 @@
 package com.easy_fcm.notifications.models
 
-data class PushNotification(
+internal data class PushNotification(
     val notification: NotificationData,
-    val to: String
+    val to: String,
+    val data : HashMap<String,Any>
 )
