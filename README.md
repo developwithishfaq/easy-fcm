@@ -12,7 +12,7 @@ Easy FCM is a powerful and user-friendly library designed to streamline the proc
 
 
 
-> Step 1: Add it to your build.gradle (project):
+> Step 1: Add it to your build.gradle/setting gradle (project):
 ```gradle
 allprojects {
     repositories {
@@ -24,7 +24,7 @@ allprojects {
 
 ```gradle
 dependencies {
-     implementation 'com.github.developwithishfaq:easy-fcm:latest_version'
+     implementation("com.github.developwithishfaq:easy-fcm:1.2.1")
 }
 ```
 
