@@ -9,7 +9,7 @@ class EasyFcm(
 ) {
     private val apiWrapper = ApiWrapper()
 
-    fun pushTestNotification(sendType: SendType, callBacks: FcmHelperCallBacks?) {
+    fun pushTestNotification(sendType: SendType, callBacks: FcmHelperCallBacks? = null) {
         apiWrapper.sendNotification(
             sendType = sendType,
             serverKey = serverKey,
