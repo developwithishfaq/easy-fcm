@@ -1,22 +1,14 @@
 # Easy FCM
+Using this library we can Easily Push Notifications to clients without any headache of setting up a system for this feature.
 
-Easy FCM is a powerful and user-friendly library designed to streamline the process of integrating Firebase Cloud Messaging (FCM) into your projects, enabling developers to effortlessly implement push notifications and enhance user engagement. With its intuitive API and comprehensive features, Easy FCM empowers developers to focus on delivering engaging content to their users rather than dealing with complex FCM setup.
-
-## Features
-
-- **Simplified Integration**: Easy FCM takes care of the intricate FCM setup, allowing you to quickly implement push notifications without the hassle.
-
-- **Intuitive API**: With an intuitive and straightforward API, Easy FCM lets you send push notifications seamlessly.
-
-- **Topics And Tokens**: Effortlessly manages to push notifications on topics/tokens.
-
-
-
+## Setup
 > Step 1: Add it to your build.gradle/setting gradle (project):
 ```gradle
 allprojects {
     repositories {
-        maven { url "https://jitpack.io" }
+        maven {
+            url = URI("https://jitpack.io")
+        }
     }
 }
 ```
@@ -30,26 +22,69 @@ dependencies {
 
 ## Usage
 
-> First Step:
 **Create Instance**
-- Get server key from firebase console
-- For **setTokenOrTopic()** in value section provide token of a device or a topic name, change **isTopic** value accordingly
-- In **setNotificationData()** Provide model **NotificationData()** containing title and body of a notification
-- Finally Build It
+- Easily Create Instance Of **EasyFcm** By Passing Your Server Key In Constructor.
+```
+    val easyFcm = EasyFcm(serverKey = YOUR_SERVER_KEY)
+```
+**Implementation**
+
+If you want to test your client side code you can do that easily by our **pushTestNotification()** function
+```
+easyFcm.pushTestNotification(sendType = SendType.Topic("All"))
+```
+But for real scenarios we need to pass some data like title body or any other custom paramteres for that we do it like this:
+```
+easyFcm.pushNotification(
+    params = FcmParams(
+        remoteNotificationData = FcmNotification(
+            title = NOTIFICATION_TITLE,
+            message = NOTIFICATION_MESSAGE
+        ),
+    ),
+    sendType = SendType.Topic("All")
+)
+```
+Now we have option of params So that we can send data for Remote Message We Receive In Client Side. But There is something 
+missing how can we send any extra params?
+We can do that easily like:
 
 ```
-val helper = FcmPushHelper.Builder()
-            .setServerKey(SERVER_KEY)
-            .setTokenOrTopic(value = TOKEN_OR_TOPIC, isTopic = false)
-            .setNotificationData(notification = NotificationData(TITLE, BODY))
-            .build()
+easyFcm.pushNotification(
+    params = FcmParams(
+        remoteNotificationData = FcmNotification(
+            title = NOTIFICATION_TITLE,
+            message = NOTIFICATION_MESSAGE
+        ),
+        dataParams = listOf(
+            Pair(KEY_1,KEY_1_VALUE),
+            Pair(KEY_2,KEY_2_VALUE)
+        )
+    ),
+    sendType = SendType.Topic("All")
+)
 ```
-> Last Step:
-Using that instance call **pushNotification()** function
+Yes you got it perfectly we can pass extra arguments as much as we want through **dataParams**, we pass list of Pairs, each pair 
+containg a key and data againts that key.
+Now the questions is how we can get that **dataParams** on client side. That is also easy:
 ```
-helper.pushNotification(onSuccess = {
-            Log.d(TAG, "onSuccess: ")
-        }, onError = {
-            Log.d(TAG, "onError: ")
-        })
-``` 
+val valueOne = remoteMessage.data[KEY_1]
+val valueTwo = remoteMessage.data[KEY_2]
+```
+So on client We have to create a class and have to extend it with **FirebaseMessagingService** then we need to ovveride two methods
+> onMessageReceived
+> onNewToken
+But we need to declare our class inside Manifest like this:
+
+```
+<service android:name=".utils.FcmService"
+    android:exported="true">
+    <intent-filter>
+        <action android:name="com.google.firebase.MESSAGING_EVENT" />
+    </intent-filter>
+</service>
+```
+Thanks
+
+
+
